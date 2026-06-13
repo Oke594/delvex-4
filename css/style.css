@@ -1,4 +1,76 @@
+/* ── LOCAL FONTS (DSGVO-konform, keine Google-Server) ── */
 
+/* Archivo Black – 400 normal */
+@font-face {
+  font-family: 'Archivo Black';
+  src: url('../fonts/archivo-black-v23-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Sans – 300 normal */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans-v17-latin-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Sans – 300 italic */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans-v17-latin-300italic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* DM Sans – 400 normal */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans-v15-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Sans – 500 normal */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans-v15-latin-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Sans – 600 normal */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../fonts/dm-sans-v15-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Serif Display – 400 normal */
+@font-face {
+  font-family: 'DM Serif Display';
+  src: url('../fonts/dm-serif-display-v15-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Serif Display – 400 italic */
+@font-face {
+  font-family: 'DM Serif Display';
+  src: url('../fonts/dm-serif-display-v15-latin-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 
@@ -137,15 +209,15 @@
 
   }
 
-  .logo-mark svg { width: 42px; height: 34px; display: block; overflow: visible; }
+  .logo-img {
 
-  .logo-v-dark { fill: #07111f; filter: drop-shadow(0 8px 14px rgba(7,17,31,0.18)); }
+    width: 100%; height: 100%; display: block;
 
-  .logo-v-blue { filter: drop-shadow(0 8px 16px rgba(26,107,250,0.24)); }
+    object-fit: contain;
 
-  .logo:hover .logo-v-dark { animation: logoLift 1.5s ease-in-out infinite; }
+  }
 
-  .logo:hover .logo-v-blue { animation: logoLift 1.5s ease-in-out infinite 0.12s; }
+  .logo:hover .logo-img { animation: logoLift 1.5s ease-in-out infinite; }
 
   .logo-name {
 
@@ -355,7 +427,7 @@
 
   .hero-actions { animation-delay: 0.34s; }
 
-  .hero-stats { animation-delay: 0.46s; }
+  .hero-reviews { animation-delay: 0.46s; }
 
   .hero-badge { display: none; }
 
@@ -453,27 +525,57 @@
 
   .hero-scroll { display: none; }
 
-  .hero-stats {
+  .hero-reviews {
 
-    display: flex; gap: 40px; justify-content: center; margin-top: 56px;
+    margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--gray-200);
 
-    padding-top: 40px; border-top: 1px solid var(--gray-200); flex-wrap: wrap;
+    overflow: hidden; width: 100%; position: relative;
 
-  }
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 
-  .hero-stat { text-align: center; }
-
-  .hero-stat strong {
-
-    display: block; font-size: 1.6rem; font-weight: 700;
-
-    letter-spacing: -0.02em; color: var(--black);
-
-    font-family: 'Archivo Black', sans-serif; text-transform: uppercase;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 
   }
 
-  .hero-stat span { font-size: 0.78rem; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .hero-reviews-track {
+
+    display: flex; gap: 24px; width: max-content;
+
+    animation: heroReviewsScroll 28s linear infinite;
+
+  }
+
+  .hero-reviews:hover .hero-reviews-track { animation-play-state: paused; }
+
+  @keyframes heroReviewsScroll {
+
+    from { transform: translateX(0); }
+
+    to { transform: translateX(-50%); }
+
+  }
+
+  .hero-review {
+
+    flex: 0 0 auto; width: 260px; text-align: left; background: var(--white);
+
+    border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px;
+
+  }
+
+  .hero-review-placeholder { opacity: 0.6; border-style: dashed; }
+
+  .hero-review-stars { color: var(--lime); letter-spacing: 2px; font-size: 1rem; margin-bottom: 10px; }
+
+  .hero-review-text {
+
+    font-size: 0.9rem; color: var(--black); line-height: 1.5;
+
+    margin-bottom: 10px;
+
+  }
+
+  .hero-review-author { font-size: 0.78rem; color: var(--gray-400); font-weight: 500; }
 
 
 
@@ -636,7 +738,7 @@
 
   .agency-logo-showcase::before { content: none; }
 
-  .agency-logo-large {
+  .agency-logo-showcase > .logo-img {
 
     width: min(78%, 360px); height: auto; overflow: visible;
 
@@ -646,19 +748,7 @@
 
   }
 
-  .agency-logo-showcase:hover .agency-logo-large { transform: scale(1.04) rotate(0.6deg); }
-
-  .agency-logo-large .logo-v-dark {
-
-    fill: #07111f; filter: none;
-
-  }
-
-  .agency-logo-large .logo-v-blue {
-
-    filter: none;
-
-  }
+  .agency-logo-showcase:hover > .logo-img { transform: scale(1.04) rotate(0.6deg); }
 
   .av-metric { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; }
 
@@ -1478,10 +1568,6 @@
 
   .footer-brand .logo-mark { background: transparent; }
 
-  .footer-brand .logo-v-dark { fill: var(--white); filter: drop-shadow(0 8px 18px rgba(0,0,0,0.28)); }
-
-  .footer-brand .logo-v-blue { fill: #0B7CFF; }
-
   .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 240px; }
 
   .footer-col h4 { color: var(--white); font-size: 0.88rem; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.01em; }
@@ -1840,8 +1926,6 @@
 
   .footer-inner { position: relative; z-index: 1; }
 
-  .footer-brand .logo-v-blue { fill: var(--lime); }
-
   .cookie-text a { color: var(--lime); }
 
   .cookie-accept { background: var(--lime); color: var(--black); border-radius: 100px; }
@@ -1961,7 +2045,7 @@
 
     .hero-illo { display: none; }
 
-    .hero-stats { gap: 24px; }
+    .hero-reviews { gap: 24px; }
 
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 
@@ -2184,3 +2268,15 @@
   }
 
 
+
+/* ── Hero Particle Effect ── */
+.hero-particles {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  background: transparent;
+  mix-blend-mode: multiply;
+}

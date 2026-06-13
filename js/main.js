@@ -1,15 +1,10 @@
+// ═══════════════════════════════════════════════
+
+// FORMSPREE CONFIG
 
 // ═══════════════════════════════════════════════
 
-// EMAILJS CONFIG – trage hier deine Daten ein
-
-// ═══════════════════════════════════════════════
-
-const EMAILJS_PUBLIC_KEY  = 'AdlmPTKB5xIrAbZio';
-
-const EMAILJS_SERVICE_ID  = 'service_izjxpom';
-
-const EMAILJS_TEMPLATE_ID = 'template_pjiea3g';
+const FORMSPREE_URL = 'https://formspree.io/f/mojzppyk';
 
 
 
@@ -445,7 +440,7 @@ function renderFooter(containerId) {
 
           <a href="#" class="logo" onclick="showPage('home')">
 
-            <div class="logo-mark"><svg viewBox="0 0 270 180" fill="none" aria-hidden="true"><path class="logo-v-dark" d="M47.6 17.4h49.1c11.9 0 22.9 6.2 29.1 16.3l64.5 105.6c9.6 15.7-1.7 35.9-20.1 35.9h-10.5c-12.5 0-24.2-6.4-31-17L32.3 40.2C24.7 29.8 35 17.4 47.6 17.4Z"/><path class="logo-v-blue" d="M184.4 17.4h65.7c10.3 0 16.8 11.2 11.6 20.1l-27.2 46.6c-6.1 10.4-17.2 16.8-29.2 16.8h-57.9c-8.3 0-13.5-9-9.3-16.1l29.5-50.6c3.5-10.1 8.1-16.8 16.8-16.8Z"/></svg></div>
+            <div class="logo-mark"><img src="logo.png" alt="Delvex Logo" class="logo-img"></div>
 
             <span class="logo-name">Delvex</span>
 
@@ -497,7 +492,7 @@ function renderFooter(containerId) {
 
           <ul>
 
-            <li><a href="mailto:Kontakt@delvex.de">Kontakt@delvex.de</a></li>
+            <li><a href="mailto:okedelfs@icloud.com">okedelfs@icloud.com</a></li>
 
             <li><a href="#">Deutschland</a></li>
 
@@ -746,9 +741,9 @@ function renderForm(containerId) {
 
         <div class="step-meta">Schritt 8 von 8</div>
 
-        <h3>Wunschtermin für das Gespräch</h3>
+        <h3>Terminvorschlag für das Gespräch</h3>
 
-        <p class="step-desc">Wähle einen freien Termin für dein kostenloses Beratungsgespräch.</p>
+        <p class="step-desc">Wähle deinen Wunschtermin für das kostenlose Beratungsgespräch.</p>
 
         <div class="calendar" id="fcal-${containerId}"></div>
 
@@ -1048,84 +1043,41 @@ function submitForm(cid) {
 
 
 
-  // EmailJS template parameters – match these to your template variables
-
-  const templateParams = {
-
-    to_email:    'okedelfs@icloud.com',
-
-    from_name:   d.name,
-
-    from_email:  d.email,
-
+  // Formspree payload
+  const formPayload = {
+    name:        d.name,
+    email:       d.email,
     telefon:     d.phone      || '(nicht angegeben)',
-
     aufbau:      d.aufbau     || '-',
-
     bestand:     d.bestand    || '-',
-
     ziel:        d.ziel       || '-',
-
     start:       d.start      || '-',
-
     budget:      d.budget     || '-',
-
     beschreibung: projektText,
-
     termin:      d.termin     || 'Kein Termin gewählt',
-
     uhrzeit:     d.uhrzeit    || '-',
-
   };
 
-
-
-  // Check if EmailJS is configured
-
-  if (EMAILJS_PUBLIC_KEY === 'DEIN_PUBLIC_KEY') {
-
-    // Fallback: open mailto if not configured yet
-
-    const body = Object.entries(templateParams)
-
-      .map(([k,v]) => `${k}: ${v}`).join('\\n');
-
-    window.location.href = `mailto:okedelfs@icloud.com?subject=${encodeURIComponent('Neue Anfrage von ' + d.name + ' – Delvex')}&body=${encodeURIComponent(body)}`;
-
-    showSuccess(cid);
-
-    return;
-
-  }
-
-
-
-  // Initialize EmailJS and send
-
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-
-    .then(() => {
-
-      showSuccess(cid);
-
-    })
-
-    .catch((err) => {
-
-      console.error('EmailJS Fehler:', err);
-
-      if (btn) {
-
-        btn.disabled = false;
-
-        btn.innerHTML = 'Anfrage senden ✓';
-
+  // Send via Formspree
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(formPayload),
+  })
+    .then(res => {
+      if (res.ok) {
+        showSuccess(cid);
+      } else {
+        return res.json().then(data => { throw new Error(data.error || 'Unbekannter Fehler'); });
       }
-
-      alert('Es gab einen Fehler beim Senden. Bitte schreib uns direkt an Kontakt@delvex.de');
-
+    })
+    .catch((err) => {
+      console.error('Formspree Fehler:', err);
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = 'Anfrage senden ✓';
+      }
+      alert('Es gab einen Fehler beim Senden. Bitte schreib uns direkt an okedelfs@icloud.com');
     });
 
 }
@@ -1150,13 +1102,13 @@ function renderCalendar(cid) {
 
 
 
-  const unavailableDays = [0, 6]; // Sun, Sat
+  const unavailableDays = []; // Alle Tage verfügbar
 
   const bookedDates = []; // e.g. ['2026-05-15']
 
-  const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+  const times = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'];
 
-  const bookedTimes = ['10:00', '15:00'];
+  const bookedTimes = []; // Keine Zeiten geblockt
 
 
 
@@ -1173,6 +1125,10 @@ function renderCalendar(cid) {
     const el = document.getElementById(`fcal-${cid}`);
 
     if (!el) return;
+
+    const viewYear = window[`calYear_${cid}`];
+
+    const viewMonth = window[`calMonth_${cid}`];
 
     const monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 
@@ -1226,9 +1182,7 @@ function renderCalendar(cid) {
 
           const key = dayKey(viewYear, viewMonth, day);
 
-          const isPast = date < new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-          const isUnavailable = unavailableDays.includes(weekday) || isPast || bookedDates.includes(key);
+          const isUnavailable = bookedDates.includes(key); // Nur explizit geblockte Daten sperren
 
           const isSelected = window[`calSel_${cid}`] === key;
 
@@ -1268,17 +1222,11 @@ function renderCalendar(cid) {
 
           times.map(t => {
 
-            const isBooked = bookedTimes.includes(t);
-
             const isTimeSelected = window[`calTime_${cid}`] === t;
 
-            let cls = 'time-slot ';
+            const cls = isTimeSelected ? 'time-slot selected' : 'time-slot';
 
-            if (isBooked) cls += 'unavailable';
-
-            else if (isTimeSelected) cls += 'selected';
-
-            return `<button class="${cls}" ${!isBooked ? `onclick="calSelectTime('${cid}','${t}')"` : 'disabled'}>${t}</button>`;
+            return `<button class="${cls}" onclick="calSelectTime('${cid}','${t}')">${t}</button>`;
 
           }).join('');
 
@@ -1432,5 +1380,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initLivelyMotion();
 
-});
+  initHeroParticles();
 
+});
+// ═══════════════════════════════════════════════
+// MOUSE TRAIL EFFECT (Schweif)
+// ═══════════════════════════════════════════════
+
+function initHeroParticles() {
+
+  const canvas = document.getElementById('heroParticles');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  let width, height, dpr;
+  let points = [];
+  let mouse = { x: -9999, y: -9999, active: false };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function onMove(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+    points.push({ x: mouse.x, y: mouse.y, life: 1 });
+    if (points.length > 60) points.shift();
+  }
+
+  function onLeave() {
+    mouse.active = false;
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // fade out / shrink trail points
+    for (let i = points.length - 1; i >= 0; i--) {
+      points[i].life -= 0.035;
+      if (points[i].life <= 0) points.splice(i, 1);
+    }
+
+    if (points.length > 1) {
+      for (let i = 1; i < points.length; i++) {
+        const p0 = points[i - 1];
+        const p1 = points[i];
+        const t = i / points.length;
+
+        const hue = (200 + t * 160) % 360;
+        const alpha = Math.max(0, p1.life) * t;
+        const width_ = Math.max(0.5, 10 * t * p1.life);
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.strokeStyle = `hsla(${hue}, 85%, 60%, ${alpha})`;
+        ctx.lineWidth = width_;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', onMove, { passive: true });
+  document.addEventListener('mouseleave', onLeave);
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      onMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
+    }
+  }, { passive: true });
+  window.addEventListener('touchend', onLeave);
+
+  resize();
+  animate();
+}
