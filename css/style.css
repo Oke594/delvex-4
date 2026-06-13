@@ -215,6 +215,10 @@
 
     object-fit: contain;
 
+    image-rendering: auto;
+
+    transform: translateZ(0);
+
   }
 
   .logo:hover .logo-img { animation: logoLift 1.5s ease-in-out infinite; }
@@ -1995,7 +1999,27 @@
 
     .burger { display: flex; }
 
-    .agency-grid { grid-template-columns: 1fr; gap: 40px; }
+    .agency-grid {
+
+      grid-template-columns: 1fr; gap: 34px; text-align: center;
+
+      align-items: center; margin-bottom: 64px;
+
+    }
+
+    .agency-text .section-label { justify-content: center; }
+
+    .agency-text .section-sub { margin-left: auto; margin-right: auto; }
+
+    .agency-logo-showcase {
+
+      width: min(100%, 430px); min-height: 260px; aspect-ratio: 16 / 10;
+
+      margin: 0 auto; display: flex; align-items: center; justify-content: center;
+
+    }
+
+    .agency-logo-showcase > .logo-img { width: min(76vw, 340px); }
 
     .services-grid { grid-template-columns: repeat(2, 1fr); }
 
@@ -2031,11 +2055,66 @@
 
     .value-pills { grid-template-columns: 1fr; }
 
-    .hero { min-height: 92vh; padding: calc(var(--nav-height) + 42px) 18px 56px; }
+    .hero {
 
-    .hero h1 { font-size: 2.75rem; }
+      min-height: auto;
 
-    .hero-sub { font-size: 0.98rem; }
+      padding: calc(var(--nav-height) + 44px) 18px 52px;
+
+    }
+
+    .hero-content { max-width: 380px; }
+
+    .hero h1 {
+
+      font-family: 'Archivo Black', sans-serif;
+
+      text-transform: uppercase;
+
+      font-size: clamp(2.15rem, 11.2vw, 3.1rem);
+
+      line-height: 0.98; letter-spacing: 0;
+
+      margin-bottom: 20px; text-wrap: balance;
+
+    }
+
+    .hero h1 em {
+
+      font-family: 'Archivo Black', sans-serif;
+
+      font-style: normal;
+
+      padding: 0.03em 0.14em;
+
+      line-height: 1;
+
+    }
+
+    .hero-sub {
+
+      font-size: 1rem; line-height: 1.65;
+
+      max-width: 32ch; margin-bottom: 28px;
+
+    }
+
+    .hero-actions {
+
+      flex-direction: column; align-items: stretch;
+
+      width: min(100%, 340px); margin: 0 auto;
+
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+
+      width: 100%; justify-content: center;
+
+      padding: 14px 20px;
+
+    }
 
     .hero-wave { min-width: 760px; height: 380px; transform: translate(-50%, -34%); }
 
@@ -2045,7 +2124,19 @@
 
     .hero-illo { display: none; }
 
-    .hero-reviews { gap: 24px; }
+    .hero-reviews { margin-top: 38px; padding-top: 28px; }
+
+    .hero-review { width: 230px; padding: 18px; }
+
+    .agency { padding: 74px 0; }
+
+    .agency-logo-showcase {
+
+      min-height: 220px; width: min(100%, 360px);
+
+    }
+
+    .agency-logo-showcase > .logo-img { width: min(82vw, 300px); }
 
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 
