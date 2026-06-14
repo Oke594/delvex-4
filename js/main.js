@@ -352,11 +352,15 @@ function openCookieSettings() {
 
   document.getElementById('cookieSettingsModal').classList.add('open');
 
+  document.body.classList.add('modal-open');
+
 }
 
 function closeCookieSettings() {
 
   document.getElementById('cookieSettingsModal').classList.remove('open');
+
+  document.body.classList.remove('modal-open');
 
 }
 
@@ -378,11 +382,15 @@ function openImpressum() {
 
   document.getElementById('impressumModal').classList.add('open');
 
+  document.body.classList.add('modal-open');
+
 }
 
 function closeImpressum() {
 
   document.getElementById('impressumModal').classList.remove('open');
+
+  document.body.classList.remove('modal-open');
 
 }
 
