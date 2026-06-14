@@ -610,6 +610,8 @@ function renderFooter(containerId) {
 
           <a href="#" onclick="openImpressum();return false;">Datenschutz</a>
 
+          <a href="#" onclick="openCookieSettings();return false;">Cookie-Einstellungen</a>
+
         </div>
 
       </div>
