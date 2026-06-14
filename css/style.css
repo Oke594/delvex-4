@@ -2248,6 +2248,35 @@
 
     .cookie-banner { bottom: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; width: 100%; left: 0; transform: none; }
 
+    .cookie-banner {
+      padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+      gap: 14px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .cookie-text strong { font-size: 0.95rem; }
+
+    .cookie-text p { font-size: 0.84rem; }
+
+    .cookie-actions {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cookie-actions button {
+      flex: 1 1 100%;
+      text-align: center;
+      padding: 12px 16px;
+    }
+
+    .cookie-actions .cookie-accept { order: 1; }
+
+    .cookie-actions .cookie-settings { order: 2; flex: 1 1 calc(50% - 4px); }
+
+    .cookie-actions .cookie-decline { order: 3; flex: 1 1 calc(50% - 4px); }
+
   }
 
 
@@ -2565,6 +2594,12 @@
   }
   .floating-cta-bottom {
     font-size: 0.82rem;
+  }
+  body.cookie-visible .floating-cta {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 }
 

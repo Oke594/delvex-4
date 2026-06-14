@@ -322,6 +322,8 @@ function closeCookie() {
 
   document.getElementById('cookieBanner').classList.add('hidden');
 
+  document.body.classList.remove('cookie-visible');
+
 }
 
 function acceptAllCookies() {
@@ -393,6 +395,10 @@ function closeImpressum() {
     document.getElementById('cookieBanner').classList.add('hidden');
 
     applyCookieConsent(consent);
+
+  } else {
+
+    document.body.classList.add('cookie-visible');
 
   }
 
