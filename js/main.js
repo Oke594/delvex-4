@@ -14,7 +14,7 @@ const FORMSPREE_URL = 'https://formspree.io/f/mojzppyk';
 
 // ═══════════════════════════════════════════════
 
-const pages = ['home','projekte','agentur','kontakt'];
+const pages = ['home','projekte','agentur','faq','kontakt'];
 
 
 
@@ -77,6 +77,8 @@ function showPage(name) {
   return false;
 
 }
+
+
 
 
 
@@ -274,15 +276,97 @@ function initLivelyMotion() {
 
 // ═══════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════
+
+// COOKIE CONSENT
+
+// ═══════════════════════════════════════════════
+
+const COOKIE_CONSENT_KEY = 'delvex_cookie_consent';
+
+function getCookieConsent() {
+
+  try {
+
+    const raw = localStorage.getItem(COOKIE_CONSENT_KEY);
+
+    return raw ? JSON.parse(raw) : null;
+
+  } catch (e) {
+
+    return null;
+
+  }
+
+}
+
+function setCookieConsent(consent) {
+
+  localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent));
+
+  applyCookieConsent(consent);
+
+}
+
+function applyCookieConsent(consent) {
+
+  if (consent && consent.analytics && typeof loadGoogleAnalytics === 'function') {
+
+    loadGoogleAnalytics();
+
+  }
+
+}
+
 function closeCookie() {
 
   document.getElementById('cookieBanner').classList.add('hidden');
 
 }
 
-function acceptCookie() {
+function acceptAllCookies() {
 
-  localStorage.setItem('delvex_cookies', '1');
+  setCookieConsent({ necessary: true, analytics: true, timestamp: Date.now() });
+
+  closeCookie();
+
+}
+
+function declineAllCookies() {
+
+  setCookieConsent({ necessary: true, analytics: false, timestamp: Date.now() });
+
+  closeCookie();
+
+}
+
+function openCookieSettings() {
+
+  const consent = getCookieConsent();
+
+  const toggle = document.getElementById('cookieAnalyticsToggle');
+
+  if (toggle) toggle.checked = consent ? !!consent.analytics : false;
+
+  document.getElementById('cookieSettingsModal').classList.add('open');
+
+}
+
+function closeCookieSettings() {
+
+  document.getElementById('cookieSettingsModal').classList.remove('open');
+
+}
+
+function saveCookieSettings() {
+
+  const toggle = document.getElementById('cookieAnalyticsToggle');
+
+  const analytics = toggle ? toggle.checked : false;
+
+  setCookieConsent({ necessary: true, analytics: analytics, timestamp: Date.now() });
+
+  closeCookieSettings();
 
   closeCookie();
 
@@ -300,11 +384,19 @@ function closeImpressum() {
 
 }
 
-if (localStorage.getItem('delvex_cookies')) {
+(function initCookieConsent() {
 
-  document.getElementById('cookieBanner').classList.add('hidden');
+  const consent = getCookieConsent();
 
-}
+  if (consent) {
+
+    document.getElementById('cookieBanner').classList.add('hidden');
+
+    applyCookieConsent(consent);
+
+  }
+
+})();
 
 
 
@@ -440,7 +532,7 @@ function renderFooter(containerId) {
 
           <a href="#" class="logo" onclick="showPage('home')">
 
-            <div class="logo-mark"><img src="logo.png" alt="Delvex Logo" class="logo-img"></div>
+            <div class="logo-mark"><img src="logo_1_1.png" alt="Delvex Logo" class="logo-img"></div>
 
             <span class="logo-name">Delvex</span>
 
@@ -1370,6 +1462,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderFooter('footer-agentur');
 
+  renderFooter('footer-faq');
+
   renderFooter('footer-kontakt');
 
   renderForm('multistep-form-home');
@@ -1381,6 +1475,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initLivelyMotion();
 
   initHeroParticles();
+
+  renderFaqList(FAQ_DATA);
 
 });
 // ═══════════════════════════════════════════════
@@ -1466,3 +1562,143 @@ function initHeroParticles() {
   resize();
   animate();
 }
+
+// ═══════════════════════════════════════════════
+// FAQ SYSTEM
+// ═══════════════════════════════════════════════
+
+const FAQ_DATA = [
+  {
+    id: 'f1',
+    q: 'Was macht Delvex genau?',
+    a: 'Delvex entwickelt moderne, leistungsstarke Websites für Unternehmen und Selbstständige. Der Fokus liegt auf Design, Performance und Conversion-Optimierung, damit deine Website nicht nur gut aussieht, sondern Ergebnisse bringt.',
+    keywords: ['delvex', 'agentur', 'webagentur', 'leistung', 'angebot', 'was', 'tut', 'macht', 'unternehmen', 'website']
+  },
+  {
+    id: 'f2',
+    q: 'Welche Services bietet Delvex an?',
+    a: 'Wir bieten Webdesign, Webentwicklung, Landingpages, Website-Relaunches sowie auf Wunsch SEO-Optimierung und digitale Strategien an.',
+    keywords: ['services', 'leistungen', 'webdesign', 'webentwicklung', 'landingpage', 'relaunch', 'seo', 'strategie', 'angebot', 'was bietet']
+  },
+  {
+    id: 'f3',
+    q: 'Wie lange dauert die Erstellung einer Website?',
+    a: 'Eine Website dauert bei Delvex in der Regel ca. 1 bis 2 Wochen, abhängig vom Umfang und der Geschwindigkeit des Feedbacks.',
+    keywords: ['dauer', 'zeit', 'lange', 'wochen', 'erstellung', 'wie schnell', 'tage', 'fertig', 'bauzeit']
+  },
+  {
+    id: 'f4',
+    q: 'Wie viel kostet eine Website bei Delvex?',
+    a: 'Die Kosten hängen vom Projekt ab. Nach einem kurzen Gespräch erhältst du ein individuelles Angebot, das genau auf deine Anforderungen zugeschnitten ist.',
+    keywords: ['preis', 'kosten', 'kostet', 'geld', 'budget', 'wie viel', 'tarif', 'angebot', 'bezahlen', 'investition']
+  },
+  {
+    id: 'f5',
+    q: 'Kann ich meine Website später selbst bearbeiten?',
+    a: 'Ja. Auf Wunsch erstellen wir Websites mit einem CMS (z. B. WordPress oder Webflow), sodass du Inhalte wie Texte, Bilder oder Preise selbstständig bearbeiten kannst – ganz ohne Programmierkenntnisse.',
+    keywords: ['selbst bearbeiten', 'cms', 'wordpress', 'webflow', 'andern', 'ändern', 'inhalte', 'texte', 'bilder', 'programmierkenntnisse', 'pflegen']
+  },
+  {
+    id: 'f6',
+    q: 'Unterstützt ihr Domain und Hosting?',
+    a: 'Ja, wir helfen dir bei der Einrichtung von Domain und Hosting und übernehmen auf Wunsch auch die komplette technische Einrichtung deiner Website.',
+    keywords: ['domain', 'hosting', 'server', 'einrichtung', 'technisch', 'unterstützung']
+  },
+  {
+    id: 'f7',
+    q: 'Bietet ihr Support nach dem Launch?',
+    a: 'Ja, wir bieten optionalen Support und Wartung an, damit deine Website sicher, aktuell und performant bleibt.',
+    keywords: ['support', 'wartung', 'launch', 'nach dem launch', 'hilfe', 'pflege', 'updates', 'sicherheit']
+  },
+  {
+    id: 'f8',
+    q: 'Was unterscheidet Delvex von anderen Webagenturen?',
+    a: 'Der größte Unterschied ist unsere Geschwindigkeit: Wir liefern Websites in nur 1–2 Wochen, während viele Agenturen deutlich länger brauchen. Gleichzeitig legen wir großen Wert auf Qualität, modernes Design und saubere Umsetzung.',
+    keywords: ['unterschied', 'warum delvex', 'andere agenturen', 'vorteil', 'besonderheit', 'wettbewerb', 'vergleich']
+  }
+];
+
+let faqOpenId = null;
+
+function renderFaqList(items) {
+  const list = document.getElementById('faqList');
+  const noResult = document.getElementById('faqNoResult');
+
+  if (!list) return;
+
+  if (!items.length) {
+    list.innerHTML = '';
+    if (noResult) noResult.hidden = false;
+    return;
+  }
+  if (noResult) noResult.hidden = true;
+
+  list.innerHTML = items.map(item => `
+    <div class="faq-item${faqOpenId === item.id ? ' open' : ''}" data-id="${item.id}">
+      <button class="faq-question" onclick="toggleFaqItem('${item.id}')">
+        <span>${escapeFaqHtml(item.q)}</span>
+        <span class="faq-question-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer-wrap">
+        <div class="faq-answer">${escapeFaqHtml(item.a)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFaqItem(id) {
+  faqOpenId = (faqOpenId === id) ? null : id;
+  document.querySelectorAll('.faq-item').forEach(el => {
+    el.classList.toggle('open', el.dataset.id === faqOpenId);
+  });
+}
+
+function escapeFaqHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Simple semantic-ish search: matches query tokens against question text,
+// answer text, and a curated keyword/synonym list per FAQ entry.
+function filterFaq(query) {
+  const q = query.trim().toLowerCase();
+
+  if (!q) {
+    faqOpenId = null;
+    renderFaqList(FAQ_DATA);
+    return;
+  }
+
+  const tokens = q.split(/\s+/).filter(Boolean);
+
+  const scored = FAQ_DATA.map(item => {
+    const haystack = (item.q + ' ' + item.a + ' ' + item.keywords.join(' ')).toLowerCase();
+    let score = 0;
+
+    tokens.forEach(token => {
+      if (haystack.includes(token)) score += 2;
+      // partial / fuzzy match for tokens with 4+ chars
+      if (token.length >= 4) {
+        item.keywords.forEach(kw => {
+          if (kw.includes(token) || token.includes(kw)) score += 1;
+        });
+      }
+    });
+
+    // direct substring match in question gets a boost
+    if (item.q.toLowerCase().includes(q)) score += 3;
+
+    return { item, score };
+  }).filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(r => r.item);
+
+  if (scored.length === 1) faqOpenId = scored[0].id;
+
+  renderFaqList(scored);
+}
+
+// Initial render of FAQ list happens in the main INIT block below.

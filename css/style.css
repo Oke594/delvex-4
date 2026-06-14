@@ -77,19 +77,19 @@
 
   :root {
 
-    --lime: #D4FF00;
+    --lime: #4A7CC9;
 
-    --lime-dark: #B8E000;
+    --lime-dark: #3A66AD;
 
-    --lime-muted: rgba(212, 255, 0, 0.14);
+    --lime-muted: rgba(74, 124, 201, 0.14);
 
     --cream: #FAF7F2;
 
-    --blue: #D4FF00;
+    --blue: #4A7CC9;
 
     --blue-dark: #111111;
 
-    --blue-light: rgba(212, 255, 0, 0.14);
+    --blue-light: rgba(74, 124, 201, 0.14);
 
     --black: #111111;
 
@@ -201,7 +201,7 @@
 
   .logo-mark {
 
-    width: 42px; height: 34px; background: transparent;
+    width: 96px; height: 64px; background: transparent;
 
     display: flex; align-items: center;
 
@@ -728,7 +728,7 @@
 
   .agency-logo-showcase {
 
-    align-items: center; justify-content: center; min-height: 420px;
+    align-items: center; justify-content: center; min-height: 520px;
 
     background: transparent; border: none; padding: 0;
 
@@ -744,7 +744,7 @@
 
   .agency-logo-showcase > .logo-img {
 
-    width: min(78%, 360px); height: auto; overflow: visible;
+    width: min(100%, 600px); height: auto; overflow: visible;
 
     animation: logoShowcaseFloat 5.8s ease-in-out infinite;
 
@@ -1674,6 +1674,110 @@
 
   .cookie-decline:hover { color: white; border-color: rgba(255,255,255,0.4); }
 
+  .cookie-settings {
+
+    background: none; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.15);
+
+    padding: 9px 16px; border-radius: var(--radius-sm); cursor: pointer;
+
+    font-family: inherit; font-size: 0.88rem; transition: all var(--transition);
+
+  }
+
+  .cookie-settings:hover { color: white; border-color: rgba(255,255,255,0.4); }
+
+  /* Buttons inside the light settings modal need a different decline style */
+
+  #cookieSettingsModal .cookie-decline {
+
+    color: var(--gray-500); border-color: var(--gray-200);
+
+  }
+
+  #cookieSettingsModal .cookie-decline:hover { color: var(--black); border-color: var(--gray-400); }
+
+  /* ── COOKIE CATEGORY TOGGLES ── */
+
+  .cookie-category {
+
+    margin-top: 20px; padding: 16px 0; border-bottom: 1px solid var(--gray-100);
+
+  }
+
+  .cookie-category:last-of-type { border-bottom: none; }
+
+  .cookie-category-header {
+
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+
+    font-weight: 600; font-size: 0.95rem; color: var(--black);
+
+  }
+
+  .cookie-category p {
+
+    margin-top: 8px; font-size: 0.85rem; line-height: 1.6; color: var(--gray-500);
+
+  }
+
+  .cookie-switch {
+
+    position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;
+
+  }
+
+  .cookie-switch input { opacity: 0; width: 0; height: 0; }
+
+  .cookie-slider {
+
+    position: absolute; cursor: pointer; inset: 0;
+
+    background-color: var(--gray-200); transition: var(--transition);
+
+    border-radius: 100px;
+
+  }
+
+  .cookie-slider::before {
+
+    content: ''; position: absolute; height: 18px; width: 18px;
+
+    left: 3px; bottom: 3px; background-color: var(--white);
+
+    transition: var(--transition); border-radius: 50%;
+
+  }
+
+  .cookie-switch input:checked + .cookie-slider {
+
+    background-color: var(--lime);
+
+  }
+
+  .cookie-switch input:checked + .cookie-slider::before {
+
+    transform: translateX(20px);
+
+  }
+
+  .cookie-switch-disabled {
+
+    opacity: 0.6; cursor: not-allowed;
+
+  }
+
+  .cookie-switch-disabled .cookie-slider {
+
+    background-color: var(--lime); cursor: not-allowed;
+
+  }
+
+  .cookie-switch-disabled .cookie-slider::before {
+
+    transform: translateX(20px);
+
+  }
+
 
 
   /* ── MODAL / IMPRESSUM ── */
@@ -2019,7 +2123,7 @@
 
     }
 
-    .agency-logo-showcase > .logo-img { width: min(76vw, 340px); }
+    .agency-logo-showcase > .logo-img { width: min(95vw, 500px); }
 
     .services-grid { grid-template-columns: repeat(2, 1fr); }
 
@@ -2136,7 +2240,7 @@
 
     }
 
-    .agency-logo-showcase > .logo-img { width: min(82vw, 300px); }
+    .agency-logo-showcase > .logo-img { width: min(98vw, 440px); }
 
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 
@@ -2370,4 +2474,288 @@
   pointer-events: none;
   background: transparent;
   mix-blend-mode: multiply;
+}
+
+/* ── Hero Reviews Label ── */
+.hero-reviews-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+  margin-top: 40px;
+}
+
+.hero-reviews-label::before {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  background: var(--lime);
+  flex-shrink: 0;
+}
+
+/* ── Floating CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--dark, #0f1117);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50px;
+  padding: 10px 20px 10px 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.floating-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.34), 0 4px 12px rgba(0,0,0,0.22);
+}
+
+.floating-cta-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4A7CC9;
+  flex-shrink: 0;
+  animation: floatingDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes floatingDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.35); }
+}
+
+.floating-cta-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.floating-cta-top {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4A7CC9;
+}
+
+.floating-cta-bottom {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+@media (max-width: 480px) {
+  .floating-cta {
+    bottom: 18px;
+    right: 16px;
+    padding: 9px 16px 9px 12px;
+  }
+  .floating-cta-bottom {
+    font-size: 0.82rem;
+  }
+}
+
+/* ── Pain Point Section ── */
+.painpoint-section {
+  background: var(--cream);
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.painpoint-section .section-label {
+  color: var(--black, #0f1117);
+  border-color: rgba(15, 17, 23, 0.2);
+  background: rgba(15, 17, 23, 0.06);
+}
+
+.painpoint-section .section-title {
+  color: var(--black, #0f1117);
+}
+
+.painpoint-section .section-title em {
+  color: var(--black, #0f1117);
+  background: var(--lime, #4A7CC9);
+}
+
+.painpoint-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.painpoint-intro {
+  position: sticky;
+  top: 100px;
+}
+
+.painpoint-lead {
+  color: var(--gray-500, #6b7280);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-top: 20px;
+  font-weight: 300;
+}
+
+.painpoint-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.painpoint-card {
+  background: var(--gray-50, #f8f9fa);
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.painpoint-card:hover {
+  background: #ffffff;
+  border-color: var(--lime, #4A7CC9);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.painpoint-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(168, 224, 96, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.painpoint-card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--black, #0f1117);
+}
+
+.painpoint-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--black, #0f1117);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.painpoint-card p {
+  color: var(--gray-500, #6b7280);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .painpoint-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .painpoint-intro {
+    position: static;
+  }
+
+  .painpoint-section {
+    padding: 64px 0;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   FAQ PAGE
+   ══════════════════════════════════════════════ */
+
+/* Search */
+.faq-search-wrap {
+  position: relative; margin: 0 auto 32px; max-width: 760px;
+}
+
+.faq-search-icon {
+  position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  color: var(--gray-400); pointer-events: none;
+}
+
+.faq-search-input {
+  width: 100%; padding: 18px 20px 18px 52px;
+  font-size: 1.05rem; font-family: inherit;
+  border: 1.5px solid var(--gray-200); border-radius: var(--radius-lg);
+  background: var(--white); color: var(--black);
+  transition: all var(--transition);
+}
+
+.faq-search-input:focus {
+  outline: none; border-color: var(--lime); box-shadow: 0 0 0 4px var(--lime-muted, rgba(74,124,201,0.14));
+}
+
+.faq-search-input::placeholder { color: var(--gray-400); }
+
+/* Accordion */
+.faq-list { display: flex; flex-direction: column; gap: 12px; margin: 0 auto; max-width: 760px; }
+
+.faq-item {
+  background: var(--white); border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.faq-item.open { border-color: var(--lime); box-shadow: var(--shadow-md); }
+
+.faq-item.faq-hidden { display: none; }
+
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  width: 100%; text-align: left; padding: 20px 22px;
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 1rem; font-weight: 500; color: var(--black);
+  transition: color var(--transition);
+}
+
+.faq-question:hover { color: var(--lime-dark, var(--lime)); }
+
+.faq-question-icon {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gray-50); display: flex; align-items: center; justify-content: center;
+  transition: transform 0.35s ease, background var(--transition);
+}
+
+.faq-item.open .faq-question-icon { transform: rotate(45deg); background: var(--lime); color: var(--black); }
+
+.faq-question-icon svg { transition: transform 0.35s ease; }
+
+.faq-answer-wrap {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.faq-item.open .faq-answer-wrap { max-height: 400px; }
+
+.faq-answer {
+  padding: 0 22px 20px; color: var(--gray-500);
+  font-size: 0.95rem; line-height: 1.7; font-weight: 300;
+}
+
+.faq-noresult {
+  text-align: center; padding: 32px 0; color: var(--gray-400);
+}
+
+@media (max-width: 640px) {
+  .faq-search-input { font-size: 0.95rem; padding: 15px 16px 15px 46px; }
 }

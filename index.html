@@ -8,6 +8,24 @@
 <title>Delvex – Moderne Webseiten für dein Business</title>
 
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Google Analytics (lädt nur nach Cookie-Zustimmung zu Statistik-Cookies) -->
+<script>
+  window.GA_MEASUREMENT_ID = 'G-RVL1NLW9JF';
+  function loadGoogleAnalytics() {
+    if (window.gaLoaded) return;
+    window.gaLoaded = true;
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_MEASUREMENT_ID;
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', window.GA_MEASUREMENT_ID);
+  }
+</script>
 </head>
 
 <body>
@@ -26,7 +44,7 @@
 
       <div class="logo-mark">
 
-        <img src="logo.png" alt="Delvex Logo" class="logo-img">
+        <img src="logo_1_1.png" alt="Delvex Logo" class="logo-img">
 
       </div>
 
@@ -41,6 +59,8 @@
       <li><a data-page="projekte" onclick="return showPage('projekte')">Beispiele</a></li>
 
       <li><a data-page="agentur" onclick="return showPage('agentur')">Agentur</a></li>
+
+      <li><a data-page="faq" onclick="return showPage('faq')">FAQ</a></li>
 
       <li><a data-page="kontakt" class="nav-cta" onclick="return showPage('kontakt')">Kontakt</a></li>
 
@@ -67,6 +87,8 @@
   <a onclick="return showPage('projekte')">Beispiele</a>
 
   <a onclick="return showPage('agentur')">Agentur</a>
+
+  <a onclick="return showPage('faq')">FAQ</a>
 
   <a onclick="return showPage('kontakt')" class="cta-mobile">Projekt Starten</a>
 
@@ -145,6 +167,8 @@
 
       </div>
 
+      <div class="hero-reviews-label">Was unsere Kunden sagen</div>
+
       <div class="hero-reviews">
         <div class="hero-reviews-track">
 
@@ -200,6 +224,44 @@
 
 
 
+  <!-- PAIN POINT SECTION -->
+
+  <section class="painpoint-section">
+    <div class="section-inner">
+      <div class="painpoint-grid">
+
+        <div class="painpoint-intro reveal">
+          <div class="section-label">Die Realität</div>
+          <h2 class="section-title">Deine Website kostet dich täglich <em>potenzielle Kunden.</em></h2>
+          <p class="painpoint-lead">Du investierst in Werbung, SEO oder Empfehlungen. Doch wenn Besucher auf deiner Website landen und nicht überzeugt werden, verlassen sie die Seite – und entscheiden sich für die Konkurrenz.</p>
+        </div>
+
+        <div class="painpoint-cards">
+
+          <div class="painpoint-card reveal reveal-delay-1">
+            <div class="painpoint-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Der erste Eindruck entscheidet</h3>
+            <p>Innerhalb weniger Sekunden bilden sich Besucher eine Meinung über dein Unternehmen. Eine veraltete oder unübersichtliche Website zerstört Vertrauen, bevor überhaupt Kontakt aufgenommen wird.</p>
+          </div>
+
+          <div class="painpoint-card reveal reveal-delay-2">
+            <div class="painpoint-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <h3>Schönes Design allein reicht nicht</h3>
+            <p>Eine moderne Website sollte nicht nur gut aussehen. Sie soll Besucher gezielt führen, Vertrauen aufbauen und aus Interessenten echte Kunden machen.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
   <!-- AGENTUR (Home) -->
 
   <section class="agency" id="agentur-section">
@@ -234,7 +296,7 @@
 
         <div class="agency-visual agency-logo-showcase reveal reveal-delay-2" aria-label="Delvex Logo">
 
-          <img src="logo.png" alt="Delvex Logo" class="logo-img">
+          <img src="logo_1_1.png" alt="Delvex Logo" class="logo-img">
 
         </div>
 
@@ -745,6 +807,55 @@
 
 <!-- ═══════════════════════════════════════ -->
 
+<!-- FAQ PAGE                                 -->
+
+<!-- ═══════════════════════════════════════ -->
+
+<div class="page" id="page-faq">
+
+  <div class="page-hero">
+
+    <div class="page-hero-inner">
+
+      <div class="section-label">Hilfe-Center</div>
+
+      <h1>Häufig gestellte <em>Fragen.</em></h1>
+
+      <p>Finde schnell Antworten zu unseren Leistungen, Preisen und Abläufen.</p>
+
+    </div>
+
+  </div>
+
+  <section style="padding:80px 0">
+
+    <div class="section-inner">
+
+      <div class="faq-search-wrap reveal">
+        <svg class="faq-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="faq-search-input" id="faqSearchInput" placeholder="Wonach suchst du? z. B. „Preis Website“" oninput="filterFaq(this.value)" autocomplete="off">
+      </div>
+
+      <div class="faq-list reveal reveal-delay-1" id="faqList"></div>
+
+      <div class="faq-noresult" id="faqNoResult" hidden>
+        <p>Keine passenden Fragen gefunden.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <div id="footer-faq"></div>
+
+</div>
+
+
+
+
+
+<!-- ═══════════════════════════════════════ -->
+
 <!-- KONTAKT PAGE                            -->
 
 <!-- ═══════════════════════════════════════ -->
@@ -861,15 +972,81 @@
 
     <strong>🍪 Diese Website verwendet Cookies</strong>
 
-    <p>Wir nutzen Cookies, um dir das beste Erlebnis zu bieten. Durch die Nutzung der Website stimmst du unserer <a href="#" onclick="openImpressum()">Datenschutzerklärung</a> zu.</p>
+    <p>Wir nutzen Cookies und ähnliche Technologien. Einige sind technisch notwendig, andere helfen uns, die Website durch Statistiken zu verbessern (Google Analytics). Du kannst frei wählen, welche Kategorien du zulässt. Weitere Infos in unserer <a href="#" onclick="openImpressum()">Datenschutzerklärung</a>.</p>
 
   </div>
 
   <div class="cookie-actions">
 
-    <button class="cookie-decline" onclick="closeCookie()">Ablehnen</button>
+    <button class="cookie-decline" onclick="declineAllCookies()">Alle ablehnen</button>
 
-    <button class="cookie-accept" onclick="acceptCookie()">Alle akzeptieren</button>
+    <button class="cookie-settings" onclick="openCookieSettings()">Einstellungen</button>
+
+    <button class="cookie-accept" onclick="acceptAllCookies()">Alle akzeptieren</button>
+
+  </div>
+
+</div>
+
+<!-- ── COOKIE SETTINGS MODAL ── -->
+
+<div class="modal-overlay" id="cookieSettingsModal" onclick="if(event.target===this)closeCookieSettings()">
+
+  <div class="modal">
+
+    <button class="modal-close" onclick="closeCookieSettings()">✕</button>
+
+    <h2>Cookie-Einstellungen</h2>
+
+    <p style="margin-top:8px;color:var(--gray-500);font-size:0.92rem;line-height:1.6">Wähle aus, welche Cookie-Kategorien du zulassen möchtest. Notwendige Cookies sind für den Betrieb der Website erforderlich und können nicht deaktiviert werden.</p>
+
+    <div class="cookie-category">
+
+      <div class="cookie-category-header">
+
+        <span>Notwendig</span>
+
+        <label class="cookie-switch cookie-switch-disabled">
+
+          <input type="checkbox" checked disabled>
+
+          <span class="cookie-slider"></span>
+
+        </label>
+
+      </div>
+
+      <p>Diese Cookies sind für die Grundfunktionen der Website erforderlich, z. B. zur Speicherung deiner Cookie-Einwilligung.</p>
+
+    </div>
+
+    <div class="cookie-category">
+
+      <div class="cookie-category-header">
+
+        <span>Statistik (Google Analytics)</span>
+
+        <label class="cookie-switch">
+
+          <input type="checkbox" id="cookieAnalyticsToggle">
+
+          <span class="cookie-slider"></span>
+
+        </label>
+
+      </div>
+
+      <p>Hilft uns zu verstehen, wie Besucher mit der Website interagieren, durch anonymisierte Statistiken (Google Analytics).</p>
+
+    </div>
+
+    <div style="margin-top:24px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+
+      <button class="cookie-decline" onclick="declineAllCookies();closeCookieSettings()">Alle ablehnen</button>
+
+      <button class="cookie-accept" onclick="saveCookieSettings()">Auswahl speichern</button>
+
+    </div>
 
   </div>
 
@@ -989,6 +1166,8 @@
       Diese Website verwendet Cookies. Einige Cookies sind technisch notwendig (z. B. um deine
       Cookie-Einwilligung zu speichern), andere dienen der Analyse (Google Analytics). Beim ersten
       Besuch kannst du über ein Cookie-Banner auswählen, welche Cookies gesetzt werden dürfen.
+      Analyse-Cookies werden nur gesetzt, wenn du dem ausdrücklich zustimmst. Du kannst deine
+      Auswahl jederzeit über die Cookie-Einstellungen (Banner-Button "Einstellungen") ändern.
       Rechtsgrundlage für notwendige Cookies ist Art. 6 Abs. 1 lit. f DSGVO, für Analyse-Cookies
       Art. 6 Abs. 1 lit. a DSGVO.
     </p>
@@ -1016,6 +1195,15 @@
 
 
 
+
+<!-- ── FLOATING CTA ── -->
+<div class="floating-cta" id="floatingCta" onclick="showPage('kontakt')" title="Projekt starten">
+  <div class="floating-cta-dot"></div>
+  <div class="floating-cta-text">
+    <span class="floating-cta-top">Limitierte Spots</span>
+    <span class="floating-cta-bottom">Projekt starten →</span>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>
