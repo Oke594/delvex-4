@@ -2595,6 +2595,9 @@
   .floating-cta-bottom {
     font-size: 0.82rem;
   }
+}
+
+@media (max-width: 600px) {
   body.cookie-visible .floating-cta {
     opacity: 0;
     transform: translateY(20px) scale(0.9);
